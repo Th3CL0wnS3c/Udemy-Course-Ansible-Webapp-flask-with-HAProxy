@@ -1,0 +1,23 @@
+-
+  name: Install Mysql Packages
+  apt: name='{{ mysql_packets }}' state=present
+
+-
+  name: Start Mysql Service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+-
+  name: Create Mysql database
+  mysql_db: name={{ mysql_database_name }} state=present
+
+-
+  name: Create Application User
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_db_pass }}"
+    priv: "{{ mysql_priv }}"
+    host: "{{ mysql_host }}"
+    state: present

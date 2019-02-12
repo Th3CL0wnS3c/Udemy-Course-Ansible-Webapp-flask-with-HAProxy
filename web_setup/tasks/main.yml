@@ -1,0 +1,19 @@
+-
+  name: Install Flask Dependencies
+  pip: name="{{ flask_packets }}" state=present
+
+-
+  name: Install Git to clone web App
+  apt: name=git state=present
+-
+  name: Download web app source code
+  git:
+    repo: "{{ git_repo }}"
+    dest: "{{ git_dst }}"
+    clone: yes
+-
+  name: Move web app to /opt
+  copy:
+    src: "{{ webapp_downloaded }}"
+    dest: "{{ webapp_dir }}"
+    remote_src: yes 

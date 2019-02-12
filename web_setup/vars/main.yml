@@ -1,0 +1,8 @@
+flask_packets:
+  - flask
+  - flask-mysql
+
+git_repo: https://github.com/mmumshad/simple-webapp-flask.git
+git_dst: /home/ansible/simple-webapp-flask/
+webapp_downloaded: /home/ansible/simple-webapp-flask/app.py
+webapp_dir: /opt/app.py

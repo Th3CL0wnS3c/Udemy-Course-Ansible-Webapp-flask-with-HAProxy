@@ -1,0 +1,43 @@
+
+-
+ hosts: all
+ tasks:
+    - name: Deploy HaProxy configuration template to hosts
+      template:
+        src: /home/ansible/haproxy.j2
+        dest: /home/ansible/haproxy_to_configure.cfg
+        owner: ansible
+
+    - name: Update haproxy configuration with servers IP Addresses
+      lineinfile: dest=/home/ansible/haproxy_to_configure.cfg regexp='.*{{item}}$' line='    server {{item}} {{hostvars[item].ansible_default_ipv4.address}}:80 check' state=present
+      with_items: "{{ groups.all }}"
+
+-
+  hosts: web_servers, db_servers
+  tasks:
+    - name: Remove HAProxy configuration Files from all servers except proxy_server_01
+      file: path=/home/ansible/haproxy_to_configure.cfg state=absent
+-
+  hosts: proxy_server_01
+  tasks:
+
+    - name: Update HaProxy conf to remove proxy and db server from haproxy configuration
+      shell: nl -b a /home/ansible/haproxy_to_configure.cfg | sort -k1,1nr | sed '1, 2 d' | sort -k1,1n | sed 's/^ *[0-9]*\t//' > /home/ansible/haproxy.cfg
+
+    - name: Copy HaProxy Updated configuration to its directory
+      copy:
+        remote_src: true
+        src: /home/ansible/haproxy.cfg
+        dest: /etc/haproxy/haproxy.cfg
+
+    - name: Enable HAProxy configuration
+      lineinfile:
+        dest: /etc/default/haproxy
+        line: "ENABLED=1"
+        state: present
+
+    - name: Start HAProxy Service
+      service:
+        name: haproxy
+        state: started
+        enabled: yes

@@ -1,0 +1,3 @@
+-
+  name: Install Python Dependencies
+  apt: name='{{ pythons_packets }}' state=present

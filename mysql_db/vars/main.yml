@@ -1,0 +1,9 @@
+mysql_packets:
+  - mysql-server
+  - mysql-client
+
+mysql_database_name: employee_db
+mysql_user: db_user
+mysql_db_pass: Passw0rd
+mysql_priv: '*.*:ALL'
+mysql_host: '%'

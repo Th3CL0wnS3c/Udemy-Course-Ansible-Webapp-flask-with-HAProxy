@@ -1,0 +1,29 @@
+
+-
+  name: Deploy Python Dependencies
+  hosts: all_nodes
+  roles:
+    - python_dep
+
+-
+  name : Deploy Mysql
+  hosts: db_servers
+  roles:
+    - mysql_db
+
+-
+  name: Deploy Flask App
+  hosts: web_servers
+  roles:
+    - web_setup
+  tasks:
+    -
+      name: Start Flask Application
+      shell: FLASK_APP=/opt/app.py nohup flask run --host=0.0.0.0 &
+-
+  name: Deploy HA Proxy
+  hosts: proxy_server_01
+  roles:
+    - haproxy_lb
+
+- import_playbook: playbook_haproxy.yml

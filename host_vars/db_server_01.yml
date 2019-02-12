@@ -1,0 +1,3 @@
+ansible_host: 192.168.42.168
+ansible_ssh_pass: root
+ansible_user: root

@@ -1,0 +1,7 @@
+pythons_packets:
+  - python
+  - python-setuptools
+  - python-dev
+  - python-pip
+  - build-essential
+  - python-mysqldb
