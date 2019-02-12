@@ -24,4 +24,4 @@ Purpose of the playbook : Setup a a flask application with HTTP load balancing
 
 Result :
 
-![HA PROXY STATS ](https://github.com/mrRobotSAS/Ansible_Web_app_flask_with_HAPROXY/Screenshots/HAPROXY.png)
+![HA PROXY STATS ](https://github.com/mrRobotSAS/Ansible_Web_app_flask_with_HAPROXY/blob/master/Screenshots/HAPROXY.png)
